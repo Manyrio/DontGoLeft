@@ -1,0 +1,32 @@
+--[[==============================
+Load:
+Main Menu
+
+New Game - 
+		Load the World table
+		load the scenes
+
+	
+	
+	
+	
+	
+	8[21:27]	robin-gvx: lua> function index(t, ...) if select("#", ...) == 0 then return t elseif t[...] then return index(t[...], select(2, ...)) else return false end end t = {} return index(t, 3, 4, 5)
+8[21:27]	lua_bot: robin-gvx: false
+8[21:28]	robin-gvx: :D
+7[21:28]	Kraftman: nice one :)
+7[21:28]	Kraftman: thanks!
+8[21:28]	robin-gvx: lua> function index(t, ...) if select("#", ...) == 0 then return t elseif t[...] then return index(t[...], select(2, ...)) else return false end end t = {[3] = {[4] = {[5] = true}}} return index(t, 3, 4, 5)
+8[21:28]	lua_bot: robin-gvx: true
+
+
+--========================================]]
+
+buckets:
+
+need random filling based on :
+depth
+terrain
+
+ore abundance
+special features

@@ -1,0 +1,267 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/Chris/Desktop/DOF test/main.lua",
+			"settings":
+			{
+				"buffer_size": 895,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dropbox/LOVE/shader test/main.lua",
+			"settings":
+			{
+				"buffer_size": 3897,
+				"line_ending": "Mac"
+			}
+		},
+		{
+			"file": "/C/Users/Chris/Desktop/shader test 4/main.lua",
+			"settings":
+			{
+				"buffer_size": 6097,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0,
+		"selected_items":
+		[
+		],
+		"width": 0
+	},
+	"console":
+	{
+		"height": 0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": true,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Chris/Desktop/fluid shader/main.lua",
+		"/C/Documents/security plus notes.txt",
+		"/C/Users/Chris/Desktop/basic fluid test3/main.lua",
+		"/C/Users/Chris/Desktop/fractal shader_2/main.lua",
+		"/C/Users/Chris/Desktop/AutoThread_2/autothread.lua",
+		"/C/Users/Chris/Desktop/AutoThread_2/main.lua",
+		"/C/Users/Chris/Desktop/AutoThread_2/thread.lua",
+		"/C/Users/Chris/Desktop/AutoThread/main.lua",
+		"/C/Documents/LOVE/thread_test/thread.lua",
+		"/C/Documents/LOVE/thread_test/main.lua",
+		"/C/Users/Chris/Desktop/AutoThread/thread.lua",
+		"/C/Users/Chris/Desktop/shader test 3/main.lua",
+		"/C/Users/Chris/Desktop/opie/main.lua",
+		"/C/Documents/LOVE/thread_test_2/main.lua",
+		"/C/Users/Chris/Desktop/opie/conf.lua",
+		"/C/Users/Chris/Desktop/Mess 0.5/sbproj.sublime-project",
+		"/C/Users/Chris/Desktop/Mess 0.5/terrain_thread.lua",
+		"/C/Users/Chris/Desktop/Mess 0.5/terrain_draw.lua",
+		"/C/Users/Chris/Desktop/Mess 0.5/worlddata.lua",
+		"/C/Users/Chris/Desktop/Mess 0.5/main.lua",
+		"/C/Users/Chris/Desktop/mess v0.2 thread  attempt/terrain_thread.lua"
+	],
+	"find":
+	{
+		"height": 32
+	},
+	"find_in_files":
+	{
+		"height": 0,
+		"include_history":
+		[
+		],
+		"location_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"main",
+			"update",
+			"love.update"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/Chris/Desktop/DOF test/main.lua",
+					"settings":
+					{
+						"buffer_size": 895,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								53,
+								53
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0,
+						"translation.y": 0,
+						"zoom_level": 1
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Dropbox/LOVE/shader test/main.lua",
+					"settings":
+					{
+						"buffer_size": 3897,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								372,
+								372
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0,
+						"translation.y": 1168,
+						"zoom_level": 1
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/Chris/Desktop/shader test 4/main.lua",
+					"settings":
+					{
+						"buffer_size": 6097,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								565,
+								565
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0,
+						"translation.y": 64,
+						"zoom_level": 1
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0
+	},
+	"input":
+	{
+		"height": 0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0,
+			1
+		],
+		"rows":
+		[
+			0,
+			1
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 60
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0,
+		"selected_items":
+		[
+		],
+		"width": 0
+	},
+	"select_project":
+	{
+		"height": 0,
+		"selected_items":
+		[
+		],
+		"width": 0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150,
+	"status_bar_visible": true
+}

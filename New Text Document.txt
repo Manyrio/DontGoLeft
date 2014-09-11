@@ -1,0 +1,6 @@
+dof:
+
+bokeh too gpu - intensive
+gauss would need multiple passes per layer for desired effect
+
+best bet may be to pre bake the blur when creating the world, have different stages of blurred terrain saved.

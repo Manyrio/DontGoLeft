@@ -1,0 +1,41 @@
+--[[==============================
+Load:
+Main Menu
+
+New Game - 
+		Load the World table
+		load the scenes
+
+	
+	
+	
+	
+	
+	8[21:27]	robin-gvx: lua> function index(t, ...) if select("#", ...) == 0 then return t elseif t[...] then return index(t[...], select(2, ...)) else return false end end t = {} return index(t, 3, 4, 5)
+8[21:27]	lua_bot: robin-gvx: false
+8[21:28]	robin-gvx: :D
+7[21:28]	Kraftman: nice one :)
+7[21:28]	Kraftman: thanks!
+8[21:28]	robin-gvx: lua> function index(t, ...) if select("#", ...) == 0 then return t elseif t[...] then return index(t[...], select(2, ...)) else return false end end t = {[3] = {[4] = {[5] = true}}} return index(t, 3, 4, 5)
+8[21:28]	lua_bot: robin-gvx: true
+
+
+
+8[21:55]	slime73: function dump_func() return mytbl end   thread:send("hi", string.dump(dump_func))
+8[21:55]	slime73: and then on the other end
+---------------------------------------------------------------------------------------
+8[21:55]	slime73: local dumpedstr = thread:receive("hi")   mytbl = loadstring(dumpedstr)()
+8[21:56]	slime73: the key is that you need to generate the function that returns the table at runtime
+8[21:56]	slime73: (also, if you're using luajit, string.dump only works in 2.0.0-beta8 and later)
+
+
+--========================================]]
+
+buckets:
+
+need random filling based on :
+depth
+terrain
+
+ore abundance
+special features
