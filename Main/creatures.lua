@@ -200,7 +200,7 @@ Cow.__index = Creature
 setmetatable(Cow,Cow)
 
 
-Cow.drawable = love.graphics.newImage("cow.png")
+Cow.drawable = love.graphics.newImage("img/cow.png")
 Cow.collides = true
 Cow.falls = true
 Cow.canjump = true

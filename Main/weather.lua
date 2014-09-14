@@ -36,7 +36,7 @@ local NewEnt = {}
 
 function NewEnt.cloud(vars)
 local t = {}
-t.tex = love.graphics.newImage("cloud.png")
+t.tex = love.graphics.newImage("img/cloud.png")
 t.y =math.random(vars.height[1],vars.height[2])
 t.x = 0-t.tex:getWidth() - math.random(200)
 

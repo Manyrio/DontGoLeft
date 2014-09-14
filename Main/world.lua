@@ -22,7 +22,7 @@ local GAME = GAME
 
 local Draw = love.graphics.draw
 
-local microtime = love.timer.getMicroTime
+local microtime = love.timer.getTime
 --=======================================
 
 local WorldTypes = WorldTypes

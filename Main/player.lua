@@ -29,7 +29,7 @@ player = {}
 tinsert(EVENT_UPDATE, player)
 tinsert(EVENT_DRAW,player)
 
-player.image = love.graphics.newImage("player.png")
+player.image = love.graphics.newImage("img/player.png")
 
 
 player.x = 3000

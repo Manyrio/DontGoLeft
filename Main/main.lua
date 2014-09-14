@@ -79,9 +79,9 @@ function love.load()
 end
 
 function love.keypressed(key,uni)
-for i = 1, #EVENT_KEYDOWN do
-	EVENT_KEYDOWN[i]:KeyPressed(key,uni)
-end
+	for i = 1, #EVENT_KEYDOWN do
+		EVENT_KEYDOWN[i]:KeyPressed(key,uni)
+	end
 	--Scene:ChangeScene("day")
 end
 
