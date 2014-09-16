@@ -1,7 +1,7 @@
 
 
 ---[=[
-local effect = love.graphics.newPixelEffect [[
+local effect = love.graphics.newShader [[
 	extern number radius;
 	extern vec2 imageSize;
 	extern vec2 direction;

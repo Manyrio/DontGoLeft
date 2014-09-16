@@ -53,7 +53,7 @@ function CreateBaseTexture(tex,b,i,j)
 		end
 		
 		
-			local offset = random(-5,5)
+		local offset = random(-5,5)
 		
 		local r,g,b,a = unpack(Data[tex].background)
 		r,g,b,a = r+offset, g+offset, b+offset, a
@@ -68,7 +68,6 @@ function CreateBaseTexture(tex,b,i,j)
 		for i = 1, random(1,5) do --random colour variation
 			local x = random(0,TUB_SIZE-2)
 			local y = random(0,TUB_SIZE-2)
-			
 			
 			local r,g,b,a = unpack(Data[tex].background)
 			

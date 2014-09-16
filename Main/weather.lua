@@ -35,45 +35,45 @@ weather.objects = {}
 local NewEnt = {}
 
 function NewEnt.cloud(vars)
-local t = {}
-t.tex = love.graphics.newImage("img/cloud.png")
-t.y =math.random(vars.height[1],vars.height[2])
-t.x = 0-t.tex:getWidth() - math.random(200)
+	local t = {}
+	t.tex = love.graphics.newImage("img/cloud.png")
+	t.y =math.random(vars.height[1],vars.height[2])
+	t.x = 0-t.tex:getWidth() - math.random(200)
 
 
-t.grav = false
-t.scalex = math.random(vars.scale[1], vars.scale[2])/100
-t.scaley = t.scalex
-t.speed = 100* math.random(vars.speed[1], vars.speed[2])/100
-t.offx = (t.tex:getWidth()*t.scalex)/2
-t.offy = (t.tex:getHeight()*t.scaley)/2
-t.active = true
-t.rotspeed = 0
-return t
+	t.grav = false
+	t.scalex = math.random(vars.scale[1], vars.scale[2])/100
+	t.scaley = t.scalex
+	t.speed = 100* math.random(vars.speed[1], vars.speed[2])/100
+	t.offx = (t.tex:getWidth()*t.scalex)/2
+	t.offy = (t.tex:getHeight()*t.scaley)/2
+	t.active = true
+	t.rotspeed = 0
+	return t
 end
 
 function NewEnt.rain(vars)
-local t = {}
-t.tex = love.graphics.newImage("rain.png")
-t.y = (0 - t.tex:getHeight())/2
-t.x = math.random(SCREEN_WIDTH+SCREEN_HEIGHT)-SCREEN_WIDTH
-if t.x < 1 then
-	t.y = t.x* -1
-	t.x = 0
-end
+	local t = {}
+	t.tex = love.graphics.newImage("rain.png")
+	t.y = (0 - t.tex:getHeight())/2
+	t.x = math.random(SCREEN_WIDTH+SCREEN_HEIGHT)-SCREEN_WIDTH
+	if t.x < 1 then
+		t.y = t.x* -1
+		t.x = 0
+	end
 
-t.rot = vars.rot
+	t.rot = vars.rot
 
-t.grav = true
-t.scalex = math.random(vars.scale[1], vars.scale[2])/100
-t.scaley = t.scalex
-t.speed = 150*math.random(vars.speed[1],vars.speed[2])/100 *(t.scalex+0.5)
-t.offx = (t.tex:getWidth()*t.scalex)/2
-t.offy = (t.tex:getHeight()*t.scaley)/2
-t.active = true
-t.rotspeed = 0
+	t.grav = true
+	t.scalex = math.random(vars.scale[1], vars.scale[2])/100
+	t.scaley = t.scalex
+	t.speed = 150*math.random(vars.speed[1],vars.speed[2])/100 *(t.scalex+0.5)
+	t.offx = (t.tex:getWidth()*t.scalex)/2
+	t.offy = (t.tex:getHeight()*t.scaley)/2
+	t.active = true
+	t.rotspeed = 0
 
-return t
+	return t
 end
 
 
@@ -97,9 +97,7 @@ local function DrawEnt(self)
 end
 
 function weather.newentity(typ,vars)
-
-
-local ent = NewEnt[typ](vars)
+	local ent = NewEnt[typ](vars)
 	ent.type = typ
 	ent.update = UpdateEnt
 	ent.draw = DrawEnt
