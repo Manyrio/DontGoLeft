@@ -7,7 +7,7 @@ local floor = math.floor
 local CAMERA = CAMERA
 local GAME = GAME
 
-local VARIATION_COUNT = 10
+local VARIATION_SIZE = 10
 
 --========================================
 
@@ -35,27 +35,27 @@ local function AdjustPixel(img, x,y, r, g, b, a)
 	img:setPixel(x,y,r1+r, g1+g, b1+b, a1+a)
 end
 			
-local function SetBackGroundTexture(tub,r,g,b,a)
+local function SetBackGroundTexture(texture,r,g,b,a)
 	for i = 0,TUB_SIZE-1 do --set the background color
 		for j = 0,TUB_SIZE-1 do
-			tub[i][j] = {r,g,b,a}
+			texture[i][j] = {r,g,b,a}
 		end
 	end
 end
 
-local function AddForeGround(tub,r,g,b,a, offset)
+local function AddForeGround(texture,r,g,b,a, offset)
 	for i = 1, random(1,5) do --random colour variation
 		local x = random(0,TUB_SIZE-2)
 		local y = random(0,TUB_SIZE-2)
 		
-		tub[x][y] = {r+offset,g+offset,b+offset,a}
-		tub[x+1][y] = {r+offset,g+offset,b+offset,a}
-		tub[x][y+1] = {r+offset,g+offset,b+offset,a}
-		tub[x+1][y+1] = {r+offset,g+offset,b+offset,a}	
+		texture[x][y] = {r+offset,g+offset,b+offset,a}
+		texture[x+1][y] = {r+offset,g+offset,b+offset,a}
+		texture[x][y+1] = {r+offset,g+offset,b+offset,a}
+		texture[x+1][y+1] = {r+offset,g+offset,b+offset,a}	
 	end
 end
 
-local function InitialiseTub()
+local function InitialiseTexture()
 	local t = {}
 	for i = 0, TUB_SIZE do
 		t[i] = {}
@@ -63,302 +63,265 @@ local function InitialiseTub()
 	return t
 end
 
-function CreateBaseTexture(ItemType,b,i,j)
-	Textures[ItemType] = Textures[ItemType] or {}
+function CreateBaseTexture(ItemTypeLabel,b,i,j)
+	Textures[ItemTypeLabel] = Textures[ItemTypeLabel] or {}
 	--if we have 10 different then use existing
-	if #Textures[ItemType] >= VARIATION_COUNT then
-		return Textures[ItemType][random(VARIATION_COUNT)]
+	if #Textures[ItemTypeLabel] >= VARIATION_SIZE then
+		return Textures[ItemTypeLabel][random(VARIATION_SIZE)]
 	end
 
-	local tub = InitialiseTub()
+	local texture = InitialiseTexture()
 	local offset = random(-5,5)	
-	local r,g,b,a = unpack(Data[ItemType].background)
+	local r,g,b,a = unpack(Data[ItemTypeLabel].background)
 	r,g,b,a = r+offset, g+offset, b+offset, a
 	
-	SetBackGroundTexture(tub,r,g,b,a)
-	AddForeGround(tub,r,g,b,a,10) -- highlights
-	AddForeGround(tub,r,g,b,a,-10) -- lowlights
+	SetBackGroundTexture(texture,r,g,b,a)
+	AddForeGround(texture,r,g,b,a,10) -- highlights
+	AddForeGround(texture,r,g,b,a,-10) -- lowlights
 	
-	Textures[ItemType][#Textures[ItemType]+1] = {ItemType,tub}
+	Textures[ItemTypeLabel][#Textures[ItemTypeLabel]+1] = {oretype = ItemTypeLabel, texture = texture}
 
-	return Textures[ItemType][#Textures[ItemType]]
+	return Textures[ItemTypeLabel][#Textures[ItemTypeLabel]]
 end
 
 
-local function CheckSides(t,left,right,top,bottom,refresh)
-	if not t then return end
-	local imgtable = t[2]
-	if refresh then 
-		imgtable = t[3]
+local function CheckSides(tub,left,right,top,bottom,refresh)
+	if not tub then return end
+	local imgtable = tub.texture 
+	
+	local index = (left and left.oretype or 0)..(right and right.oretype or 0)..(top and top.oretype or 0)..(bottom and bottom.oretype or 0)
+
+	tub.imgtable = tub.imgtable or {}
+	
+	tub.imgtable[index] = tub.imgtable[index] or {}
+	
+	if #tub.imgtable[index] >= 1 then
+		return tub.imgtable[index][random(1)]
 	end
-	local index = (left and left[1] or 0)..(right and right[1] or 0)..(top and top[1] or 0)..(bottom and bottom[1] or 0)
-		
-	if not t[3] then 
-		t[3] = {}
+
+	local img = love.image.newImageData(TUB_SIZE, TUB_SIZE)
+	--if (left and (left.oretype == tub.oretype) and 2 or 0) == 0 then
+		-- ???		
+	--end
+	
+	for i = (left and (tub.oretype == "dirt") and 0 or left and (left.oretype == tub.oretype) and 0 or 2), (right and (tub.oretype == "dirt") and TUB_SIZE-1 or right and (right.oretype == tub.oretype) and TUB_SIZE-1 or TUB_SIZE-1-2) do
+		for j = (top and (tub.oretype == "dirt") and 0 or top and (top.oretype == tub.oretype) and 0 or 2), (bottom and (tub.oretype == "dirt") and TUB_SIZE-1 or bottom and (bottom.oretype == tub.oretype) and TUB_SIZE-1 or TUB_SIZE-1-2) do
+			img:setPixel(i,j,unpack(imgtable[i][j]))
+		end
 	end
 	
-	if not t[3][index] then
-		t[3][index] = {}
+	if left and left.oretype == "dirt" and not (tub.oretype == left.oretype) then
+		for i = 0,1 do
+			for j = (top and ((top.oretype == tub.oretype) or (top.oretype == "dirt")) and 0 or 2), (bottom and ((bottom.oretype == tub.oretype) or (bottom.oretype == "dirt")) and TUB_SIZE-1 or TUB_SIZE-1-2) do
+				img:setPixel(i,j,unpack(Data.dirt.background))
+			end
+		end
 	end
 	
-	if #t[3][index] < 5 then
+	if right and right.oretype == "dirt" and not (tub.oretype == right.oretype) then
+		for i = TUB_SIZE-2,TUB_SIZE-1 do
+			for j = (top and ((top.oretype == tub.oretype) or (top.oretype == "dirt")) and 0 or 2), (bottom and ((bottom.oretype == tub.oretype) or (bottom.oretype == "dirt")) and TUB_SIZE-1 or TUB_SIZE-1-2) do
+				img:setPixel(i,j,unpack(Data.dirt.background))
+			end
+		end
+	end
 	
-		local img = love.image.newImageData(TUB_SIZE, TUB_SIZE)
-		if (left and (left[1] == t[1]) and 2 or 0) == 0 then
+	if top and top.oretype == "dirt" and not (tub.oretype == top.oretype) then
+		for j = 0,1 do
+			for i = (left and ((left.oretype == tub.oretype) or (left.oretype == "dirt")) and 0 or 2), (right and ((right.oretype == tub.oretype) or (right.oretype == "dirt")) and TUB_SIZE-1 or TUB_SIZE-1-2) do
+				img:setPixel(i,j,unpack(Data.dirt.background))
+			end
+		end
+	end
+	
+	if bottom and bottom.oretype == "dirt" and not (tub.oretype == bottom.oretype) then
+		for j = TUB_SIZE-2,TUB_SIZE-1 do
+			for i = (left and ((left.oretype == tub.oretype) or (left.oretype == "dirt")) and 0 or 2), (right and ((right.oretype == tub.oretype) or (right.oretype == "dirt")) and TUB_SIZE-1 or TUB_SIZE-1-2) do
+				img:setPixel(i,j,unpack(Data.dirt.background))
+			end
+		end
+	end
+	---[[
+	
+	
+	for i = 0, TUB_SIZE-1,2 do --cut off the edges if needed
+		for j = 0, TUB_SIZE-1,2 do
+			local r,g,b,a = unpack(imgtable[i][j])
+			r,g,b,a = r-40,g-40,b-40,a
+			if not left or left and (left.oretype ~= tub.oretype) and not (tub.oretype == "dirt") then
+				if i == 0 then
+					if (j > (top and (top.oretype == tub.oretype) and 0 or 2)) and (j < (bottom and (bottom.oretype == tub.oretype) and TUB_SIZE-1 or TUB_SIZE-1-2)) then
+					
+					if random(3) == 3 then
+						
+						img:setPixel(i,j,r,g,b,a)
+						img:setPixel(i+1,j,r,g,b,a)
+						img:setPixel(i,j+1,r,g,b,a)
+						img:setPixel(i+1,j+1,r,g,b,a)
+						local i = i + 2
+						AdjustPixel(img, i,j, 10,10,10,0)
+						AdjustPixel(img, i+1,j, 10,10,10,0)
+						AdjustPixel(img, i,j+1, 10,10,10,0)
+						AdjustPixel(img, i+1,j+1, 10,10,10,0)
+					else
+						local i = i + 2
+						img:setPixel(i,j,r,g,b,a)
+						img:setPixel(i+1,j,r,g,b,a)
+						img:setPixel(i,j+1,r,g,b,a)
+						img:setPixel(i+1,j+1,r,g,b,a)
+						
+						i = i + 2
+						AdjustPixel(img, i,j, 10,10,10,0)
+						AdjustPixel(img, i+1,j, 10,10,10,0)
+						AdjustPixel(img, i,j+1, 10,10,10,0)
+						AdjustPixel(img, i+1,j+1, 10,10,10,0)
+					end
+					end
+				end
+			end
+			
+			if not right or right and (right.oretype ~= tub.oretype) and not (tub.oretype == "dirt") then
+				if i == (TUB_SIZE-2) then
+					if (j > (top and (top.oretype == tub.oretype) and 0 or 2)) and (j < (bottom and (bottom.oretype == tub.oretype) and TUB_SIZE-1 or TUB_SIZE-1-2)) then
+					
+					
+					if random(3) == 3 then
+						local i = TUB_SIZE-2
+						img:setPixel(i,j,r,g,b,a)
+						img:setPixel(i+1,j,r,g,b,a)
+						img:setPixel(i,j+1,r,g,b,a)
+						img:setPixel(i+1,j+1,r,g,b,a)
+					 i = i - 2
+						AdjustPixel(img, i,j, 10,10,10,0)
+						AdjustPixel(img, i+1,j, 10,10,10,0)
+						AdjustPixel(img, i,j+1, 10,10,10,0)
+						AdjustPixel(img, i+1,j+1, 10,10,10,0)
+					else
+						local i = TUB_SIZE-4
+						img:setPixel(i,j,r,g,b,a)
+						img:setPixel(i+1,j,r,g,b,a)
+						img:setPixel(i,j+1,r,g,b,a)
+						img:setPixel(i+1,j+1,r,g,b,a)
+						
+						 i = i - 2
+						AdjustPixel(img, i,j, 10,10,10,0)
+						AdjustPixel(img, i+1,j, 10,10,10,0)
+						AdjustPixel(img, i,j+1, 10,10,10,0)
+						AdjustPixel(img, i+1,j+1, 10,10,10,0)
+					end
+					end
+				end
+			end
+			
+
+			
+			if not top or top and (top.oretype ~= tub.oretype) and not (tub.oretype == "dirt") then
+				if j == 0 then
+					if (i > (left and (left.oretype == tub.oretype) and 0 or 2)) and (i < (right and (right.oretype == tub.oretype) and TUB_SIZE-1 or TUB_SIZE-1-2)) then
+					
+					
+						if random(3) == 3 then
+							img:setPixel(i,j,r,g,b,a)
+							img:setPixel(i+1,j,r,g,b,a)
+							img:setPixel(i,j+1,r,g,b,a)
+							img:setPixel(i+1,j+1,r,g,b,a)
+							
+							local j = j + 2
+							AdjustPixel(img, i,j, 10,10,10,0)
+							AdjustPixel(img, i+1,j, 10,10,10,0)
+							AdjustPixel(img, i,j+1, 10,10,10,0)
+							AdjustPixel(img, i+1,j+1, 10,10,10,0)
+						else
+							local j = j + 2
+							img:setPixel(i,j,r,g,b,a)
+							img:setPixel(i+1,j,r,g,b,a)
+							img:setPixel(i,j+1,r,g,b,a)
+							img:setPixel(i+1,j+1,r,g,b,a)
+							
+							 j = j + 2
+							AdjustPixel(img, i,j, 10,10,10,0)
+							AdjustPixel(img, i+1,j, 10,10,10,0)
+							AdjustPixel(img, i,j+1, 10,10,10,0)
+							AdjustPixel(img, i+1,j+1, 10,10,10,0)
+						end
+					end
+				end
+			end
+			
+			if not bottom or bottom and (bottom.oretype ~= tub.oretype) and not (tub.oretype == "dirt") then
+				if j == (TUB_SIZE-2) then
+					if (i > (left and (left.oretype == tub.oretype) and 0 or 2)) and (i < (right and (right.oretype == tub.oretype) and TUB_SIZE-1 or TUB_SIZE-1-2)) then
+					
+					
+					if random(3) == 3 then
+						local j = TUB_SIZE-2
+						img:setPixel(i,j,r,g,b,a)
+						img:setPixel(i+1,j,r,g,b,a)
+						img:setPixel(i,j+1,r,g,b,a)
+						img:setPixel(i+1,j+1,r,g,b,a)
+						
+						j = j - 2
+						AdjustPixel(img, i,j, 10,10,10,0)
+						AdjustPixel(img, i+1,j, 10,10,10,0)
+						AdjustPixel(img, i,j+1, 10,10,10,0)
+						AdjustPixel(img, i+1,j+1, 10,10,10,0)
+						
+					else
+						local j = TUB_SIZE-4
+						img:setPixel(i,j,r,g,b,a)
+						img:setPixel(i+1,j,r,g,b,a)
+						img:setPixel(i,j+1,r,g,b,a)
+						img:setPixel(i+1,j+1,r,g,b,a)
+						
+						j = j - 2
+						AdjustPixel(img, i,j, 10,10,10,0)
+						AdjustPixel(img, i+1,j, 10,10,10,0)
+						AdjustPixel(img, i,j+1, 10,10,10,0)
+						AdjustPixel(img, i+1,j+1, 10,10,10,0)
+					end
+					end
+				end
+			end				
 			
 		end
-		
-		for i = (left and (t[1] == "dirt") and 0 or left and (left[1] == t[1]) and 0 or 2), (right and (t[1] == "dirt") and TUB_SIZE-1 or right and (right[1] == t[1]) and TUB_SIZE-1 or TUB_SIZE-1-2) do
-			for j = (top and (t[1] == "dirt") and 0 or top and (top[1] == t[1]) and 0 or 2), (bottom and (t[1] == "dirt") and TUB_SIZE-1 or bottom and (bottom[1] == t[1]) and TUB_SIZE-1 or TUB_SIZE-1-2) do
-				
-				img:setPixel(i,j,unpack(imgtable[i][j]))
-			end
-		end
-		
-		if left and left[1] == "dirt" and not (t[1] == left[1]) then
-			for i = 0,1 do
-				for j = (top and ((top[1] == t[1]) or (top[1] == "dirt")) and 0 or 2), (bottom and ((bottom[1] == t[1]) or (bottom[1] == "dirt")) and TUB_SIZE-1 or TUB_SIZE-1-2) do
-					img:setPixel(i,j,unpack(Data.dirt.background))
-				end
-			end
-		end
-		
-		if right and right[1] == "dirt" and not (t[1] == right[1]) then
-			for i = TUB_SIZE-2,TUB_SIZE-1 do
-				for j = (top and ((top[1] == t[1]) or (top[1] == "dirt")) and 0 or 2), (bottom and ((bottom[1] == t[1]) or (bottom[1] == "dirt")) and TUB_SIZE-1 or TUB_SIZE-1-2) do
-					img:setPixel(i,j,unpack(Data.dirt.background))
-				end
-			end
-		end
-		
-		if top and top[1] == "dirt" and not (t[1] == top[1]) then
-			for j = 0,1 do
-				for i = (left and ((left[1] == t[1]) or (left[1] == "dirt")) and 0 or 2), (right and ((right[1] == t[1]) or (right[1] == "dirt")) and TUB_SIZE-1 or TUB_SIZE-1-2) do
-					img:setPixel(i,j,unpack(Data.dirt.background))
-				end
-			end
-		end
-		
-		if bottom and bottom[1] == "dirt" and not (t[1] == bottom[1]) then
-			for j = TUB_SIZE-2,TUB_SIZE-1 do
-				for i = (left and ((left[1] == t[1]) or (left[1] == "dirt")) and 0 or 2), (right and ((right[1] == t[1]) or (right[1] == "dirt")) and TUB_SIZE-1 or TUB_SIZE-1-2) do
-					img:setPixel(i,j,unpack(Data.dirt.background))
-				end
-			end
-		end
-		---[[
-		
-		
-		for i = 0, TUB_SIZE-1,2 do --cut off the edges if needed
-			for j = 0, TUB_SIZE-1,2 do
-				local r,g,b,a = unpack(imgtable[i][j])
-				r,g,b,a = r-40,g-40,b-40,a
-				if not left or left and (left[1] ~= t[1]) and not (t[1] == "dirt") then
-					if i == 0 then
-						if (j > (top and (top[1] == t[1]) and 0 or 2)) and (j < (bottom and (bottom[1] == t[1]) and TUB_SIZE-1 or TUB_SIZE-1-2)) then
-						
-						if random(3) == 3 then
-							
-							img:setPixel(i,j,r,g,b,a)
-							img:setPixel(i+1,j,r,g,b,a)
-							img:setPixel(i,j+1,r,g,b,a)
-							img:setPixel(i+1,j+1,r,g,b,a)
-							local i = i + 2
-							AdjustPixel(img, i,j, 10,10,10,0)
-							AdjustPixel(img, i+1,j, 10,10,10,0)
-							AdjustPixel(img, i,j+1, 10,10,10,0)
-							AdjustPixel(img, i+1,j+1, 10,10,10,0)
-						else
-							local i = i + 2
-							img:setPixel(i,j,r,g,b,a)
-							img:setPixel(i+1,j,r,g,b,a)
-							img:setPixel(i,j+1,r,g,b,a)
-							img:setPixel(i+1,j+1,r,g,b,a)
-							
-							i = i + 2
-							AdjustPixel(img, i,j, 10,10,10,0)
-							AdjustPixel(img, i+1,j, 10,10,10,0)
-							AdjustPixel(img, i,j+1, 10,10,10,0)
-							AdjustPixel(img, i+1,j+1, 10,10,10,0)
-						end
-						end
-					end
-				end
-				
-				if not right or right and (right[1] ~= t[1]) and not (t[1] == "dirt") then
-					if i == (TUB_SIZE-2) then
-						if (j > (top and (top[1] == t[1]) and 0 or 2)) and (j < (bottom and (bottom[1] == t[1]) and TUB_SIZE-1 or TUB_SIZE-1-2)) then
-						
-						
-						if random(3) == 3 then
-							local i = TUB_SIZE-2
-							img:setPixel(i,j,r,g,b,a)
-							img:setPixel(i+1,j,r,g,b,a)
-							img:setPixel(i,j+1,r,g,b,a)
-							img:setPixel(i+1,j+1,r,g,b,a)
-						 i = i - 2
-							AdjustPixel(img, i,j, 10,10,10,0)
-							AdjustPixel(img, i+1,j, 10,10,10,0)
-							AdjustPixel(img, i,j+1, 10,10,10,0)
-							AdjustPixel(img, i+1,j+1, 10,10,10,0)
-						else
-							local i = TUB_SIZE-4
-							img:setPixel(i,j,r,g,b,a)
-							img:setPixel(i+1,j,r,g,b,a)
-							img:setPixel(i,j+1,r,g,b,a)
-							img:setPixel(i+1,j+1,r,g,b,a)
-							
-							 i = i - 2
-							AdjustPixel(img, i,j, 10,10,10,0)
-							AdjustPixel(img, i+1,j, 10,10,10,0)
-							AdjustPixel(img, i,j+1, 10,10,10,0)
-							AdjustPixel(img, i+1,j+1, 10,10,10,0)
-						end
-						end
-					end
-				end
-				
-
-				
-				if not top or top and (top[1] ~= t[1]) and not (t[1] == "dirt") then
-					if j == 0 then
-						if (i > (left and (left[1] == t[1]) and 0 or 2)) and (i < (right and (right[1] == t[1]) and TUB_SIZE-1 or TUB_SIZE-1-2)) then
-						
-						
-							if random(3) == 3 then
-								img:setPixel(i,j,r,g,b,a)
-								img:setPixel(i+1,j,r,g,b,a)
-								img:setPixel(i,j+1,r,g,b,a)
-								img:setPixel(i+1,j+1,r,g,b,a)
-								
-								local j = j + 2
-								AdjustPixel(img, i,j, 10,10,10,0)
-								AdjustPixel(img, i+1,j, 10,10,10,0)
-								AdjustPixel(img, i,j+1, 10,10,10,0)
-								AdjustPixel(img, i+1,j+1, 10,10,10,0)
-							else
-								local j = j + 2
-								img:setPixel(i,j,r,g,b,a)
-								img:setPixel(i+1,j,r,g,b,a)
-								img:setPixel(i,j+1,r,g,b,a)
-								img:setPixel(i+1,j+1,r,g,b,a)
-								
-								 j = j + 2
-								AdjustPixel(img, i,j, 10,10,10,0)
-								AdjustPixel(img, i+1,j, 10,10,10,0)
-								AdjustPixel(img, i,j+1, 10,10,10,0)
-								AdjustPixel(img, i+1,j+1, 10,10,10,0)
-							end
-						end
-					end
-				end
-				
-				if not bottom or bottom and (bottom[1] ~= t[1]) and not (t[1] == "dirt") then
-					if j == (TUB_SIZE-2) then
-						if (i > (left and (left[1] == t[1]) and 0 or 2)) and (i < (right and (right[1] == t[1]) and TUB_SIZE-1 or TUB_SIZE-1-2)) then
-						
-						
-						if random(3) == 3 then
-							local j = TUB_SIZE-2
-							img:setPixel(i,j,r,g,b,a)
-							img:setPixel(i+1,j,r,g,b,a)
-							img:setPixel(i,j+1,r,g,b,a)
-							img:setPixel(i+1,j+1,r,g,b,a)
-							
-							j = j - 2
-							AdjustPixel(img, i,j, 10,10,10,0)
-							AdjustPixel(img, i+1,j, 10,10,10,0)
-							AdjustPixel(img, i,j+1, 10,10,10,0)
-							AdjustPixel(img, i+1,j+1, 10,10,10,0)
-							
-						else
-							local j = TUB_SIZE-4
-							img:setPixel(i,j,r,g,b,a)
-							img:setPixel(i+1,j,r,g,b,a)
-							img:setPixel(i,j+1,r,g,b,a)
-							img:setPixel(i+1,j+1,r,g,b,a)
-							
-							j = j - 2
-							AdjustPixel(img, i,j, 10,10,10,0)
-							AdjustPixel(img, i+1,j, 10,10,10,0)
-							AdjustPixel(img, i,j+1, 10,10,10,0)
-							AdjustPixel(img, i+1,j+1, 10,10,10,0)
-						end
-						end
-					end
-				end				
-				
-			end
-		end
-		
-	
-		
-		
-		t[3][index][#t[3][index]+1] = {t[1],img,imgtable}
-		return t[3][index][#t[3][index]]
-	else
-		return t[3][index][random(5)]
 	end
 	
+	tub.imgtable[index][#tub.imgtable[index]+1] = {oretype = tub.oretype,texture = imgtable,imgdata = img}
+	return tub.imgtable[index][#tub.imgtable[index]]
 end
 
 local function GetTop(b,i,j)
-	local top
-	if j == 0 then --checking top
-		local topBucket = World:GetBucket(b.i, b.j-1)
-		top = topBucket and topBucket.tubs[i] and topBucket.tubs[i][BUCKET_YCOUNT-1]
-	else
-		if b.tubs[i] then
-			top = b.tubs[i][j-1]
-		end
-	end
-	return top
+	return j == 0
+	and World:GetBucket(b.i, b.j-1):GetTub(i,BUCKET_YCOUNT-1)
+	or b:GetTub(i,j-1)
 end
 
 local function GetBottom(b,i,j)
-	local bottom
-	if j == BUCKET_YCOUNT-1 then --checking bottom
-		local bottomBucket = World:GetBucket(b.i,b.j+1)
-		bottom = bottomBucket and bottomBucket.tubs[i] and bottomBucket.tubs[i][0]
-	else
-		if b.tubs[i] then
-			bottom = b.tubs[i][j+1]
-		end
-	end
-	return bottom
+	return j == BUCKET_YCOUNT-1 
+	and World:GetBucket(b.i,b.j+1):GetTub(i,0)
+	or b:GetTub(i,j+1)
 end
 
 local function GetLeft(b,i,j)
-	local left
-	if i == 0 then --checking left
-		local leftBucket = World:GetBucket(b.i-1,b.j)
-		left = leftBucket and leftBucket.tubs[BUCKET_XCOUNT-1] and leftBucket.tubs[BUCKET_XCOUNT-1][j]
-	else
-		if b.tubs[i-1] then
-			left = b.tubs[i-1][j]
-		end
-	end
-	return left
+	return i == 0 
+	and World:GetBucket(b.i-1,b.j):GetTub(BUCKET_XCOUNT-1,j)
+	or b:GetTub(i-1,j)
 end
 
-local function GetRight(b,i,j)
-	local right
-	if i == BUCKET_XCOUNT-1 then --checking right
-		local rightBucket = World:GetBucket(b.i+1,b.j)
-		right = b:GetTub(0, j)
-	else
-		if b.tubs[i+1] then
-			right = b.tubs[i+1][j]
-		end
-	end
-	return right
+local function GetRight(bucket,i,j)
+	return i == BUCKET_XCOUNT-1 
+	and World:GetBucket(bucket.i+1,bucket.j):GetTub(0,j)
+	or bucket:GetTub(i+1,j)
 end
 
-function SetEdgeTexture(b,i,j,refresh)
-	local t = b.tubs[i][j]
-	local top, bottom, left, right = GetTop(b,i,j), GetBottom(b,i,j), GetLeft(b,i,j), GetRight(b,i,j)
+function SetEdgeTexture(bucket,i,j,refresh)
+	local tub = bucket:GetTub(i,j)
+	local top = GetTop(bucket,i,j)
+	local bottom = GetBottom(bucket,i,j)
+	local left = GetLeft(bucket,i,j)
+	local right = GetRight(bucket,i,j)
 
-	return CheckSides(t,left,right,top,bottom,refresh)
+	return CheckSides(tub,left,right,top,bottom,refresh)
 end
 
 CreateIcon = {}

@@ -57,7 +57,7 @@ function World:UpdateAdjacentTubs(bx,by,tx,ty)
 			local tub = self:GetTub(bx,by,tx+i,ty+j)
 			if tub then
 				self.Buckets[bx][by].tubs[tx+i][ty+j] = SetEdgeTexture(self.Buckets[bx][by],tx+i, ty+j,true)
-				tub[4] = love.graphics.newImage(tub[2])
+				tub.img = love.graphics.newImage(tub.texture)
 			end
 		end
 	end

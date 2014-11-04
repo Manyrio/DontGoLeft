@@ -79,7 +79,7 @@ end
 				---[[
 function CreateItem(bx,by,tx,ty)
 	local bucket = World.Buckets[bx][by]
-	local tex = bucket.tubs[tx][ty][1]
+	local tex = bucket:GetTub(tx,ty).oretype
 
 	local item = {}
 	item.type = tex
