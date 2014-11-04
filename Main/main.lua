@@ -1,3 +1,7 @@
+
+-- terrain generates buckets with textures
+
+
 --======= general locals ===========
 local random = math.random
 local tinsert = table.insert
@@ -12,7 +16,7 @@ require "textures"
 require 'entities/creatures'
 require 'scenes'
 --require 'weather'
-require 'terrain'
+require 'bucket'
 require 'world'
 require 'items'
 require "entities/player"

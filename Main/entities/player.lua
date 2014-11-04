@@ -1,16 +1,3 @@
---[[
-
-10 items on hotbar
-
-start with just the hotbar
-
-more bags add more room
-
-
---]]
-
-
-
 --======= locals ===========
 local random = math.random
 local tinsert = table.insert
@@ -24,89 +11,54 @@ local Draw = love.graphics.draw
 --========================================
 
 
-player = {}
+player = { x = 3000, y = 0, sx = 1, sy = 1, ox = 1, oy = 0,
+		   width = 18, height = 38, active = true, vx = 0, vy = 0,
+			reach = 40, jumps = 0, bagsize = 10, items = {} }
+
+player.image = love.graphics.newImage("img/player.png")
 
 tinsert(EVENT_UPDATE, player)
 tinsert(EVENT_DRAW,player)
 
-player.image = love.graphics.newImage("img/player.png")
+local mouse_timer = 0
+local mouse_interval = 0.3
 
-
-player.x = 3000
-player.y = 0
-player.sx = 1
-player.sy = 1
-player.ox = 1
-player.oy = 0
-player.width = 18
-player.height = 38
-player.active = true
-player.vx = 0
-player.vy = 0
-player.reach = 40
-
-player.bagsize = 10
-
-player.items = {}
-
-
-
-local function GetBucket(x,y)
-	return floor(x/BUCKET_WIDTH), floor(y/BUCKET_HEIGHT)
-end
-
-local function GetTub(bx,by,x,y)
-	return floor((x-bx*BUCKET_WIDTH)/TUB_SIZE), floor((y-by*BUCKET_HEIGHT)/TUB_SIZE)
-end
-
-function player:Collides(newx, newy)
-	local bx, by = GetBucket(newx,newy)
-	local tx,ty = GetTub(bx,by, newx, newy)
-	local b = World.Buckets[bx] and World.Buckets[bx][by]
-	if b then
-
-	local t = b.tubs[tx] and b.tubs[tx][ty]
-	
-		if t then
-			if t == "air" then
-				return false
-			else
+function player:BoundsCollide(newX, newY)
+	for i = newX, newX + self.width, self.width/2 do
+		for j = newY, newY + self.height, self.height/2 do
+			if World:Collides(i,j) then
 				return true
 			end
-		else
-			return false
 		end
-	end	
+	end
+end
+
+function player:Move(newX, newY)
+	newX = newX or self.x
+	newY = newY or self.y
+
+	if not self:BoundsCollide(newX,newY) then
+		self:SetPosition(newX,newY)
+	end
+end
+
+function player:SetPosition(newX, newY)
+	self.x = newX
+	CAMERA.X = player.x - CAMERA.offsetX
+	self.y = newY
+	CAMERA.Y = player.y - CAMERA.offsetY
 end
 
 
-local function ClearTub(mx, my)
-	local bx,by = GetBucket(mx,my)
-	local tx, ty = GetTub(bx,by,mx,my)
-	if World.Buckets[bx][by].tubs[tx] and World.Buckets[bx][by].tubs[tx][ty] then
-		CreateItem(World.Buckets[bx][by].tubs[tx][ty][1],bx,by, tx, ty)
-		World.Buckets[bx][by].tubs[tx][ty] = nil
-	
-		for i = -1, 1 do
-			for j = -1, 1 do
-				if World.Buckets[bx][by].tubs[tx+i] and World.Buckets[bx][by].tubs[tx+i][ty+j] then
-					local tub = World.Buckets[bx][by].tubs[tx+i][ty+j]
-					if tub then
-						
-						World.Buckets[bx][by].tubs[tx+i][ty+j] = SetEdgeTexture(World.Buckets[bx][by], tub, tx+i, ty+j,true)
-						tub[4] = love.graphics.newImage(tub[2])
-					end
-				end
-			end
-		end
-		
-		World.Buckets[bx][by].buffer = nil
+function player:Jump()
+	if player.jumps < 2 then
+		self.vy = -200
+		self.jumps = self.jumps + 1
 	end
 end
 
 local function ConvertMouse(mx, my)
-return CAMERA.X+mx, CAMERA.Y+my
-
+	return CAMERA.X+mx, CAMERA.Y+my
 end
 
 local function InRange(mx,my)
@@ -121,9 +73,16 @@ local function InRange(mx,my)
 	end
 end
 
-local mouse_timer = 0
-local mouse_interval = 0.3
-local newy
+function player:ProcessGravity(dt)
+	local newY = self.y  + self.vy*dt
+	if self:BoundsCollide(self.x, newY) then
+		self.vy = 0
+		self.jumps = 0
+	else
+		self.vy = self.vy + GRAVITY*dt
+		self.y = newY
+	end
+end
 
 function player:Update(dt)
 	-- ======== MOUSE STUFF =========
@@ -134,23 +93,13 @@ function player:Update(dt)
 		if love.mouse.isDown("l") then
 			local mx, my = ConvertMouse(mouse.x, mouse.y)
 			if InRange(mx,my) then
-				
-				ClearTub(mx,my)
-				ClearTub(mx+10,my)
+				World:DestroyTub(mx,my)
 			end
 		end
 	end
 	
-	-- ========== GRAVITY ===========
-	newy = self.y  + self.vy*dt
-	if self:Collides(self.x,newy) or self:Collides(self.x+self.width,newy) then
-		self.vy = 0
-	elseif self:Collides(self.x,newy+self.height*self.sy) or self:Collides(self.x+self.width,newy+self.height*self.sy)  then
-	 self.vy = math.min(self.vy, 0)
-	else
-		self.vy = self.vy + GRAVITY*dt
-		self.y = newy
-	end
+	self:ProcessGravity(dt)
+	
 	CAMERA.Y = self.y	-CAMERA.offsetY
 	--===============================
 	

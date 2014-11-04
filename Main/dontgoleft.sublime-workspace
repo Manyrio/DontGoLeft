@@ -1,0 +1,359 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"sh",
+				"short_url"
+			],
+			[
+				"to",
+				"torso"
+			],
+			[
+				"ma",
+				"maxExtend"
+			],
+			[
+				"min",
+				"minRotate"
+			],
+			[
+				"table",
+				"table.sort	table.sort"
+			],
+			[
+				"max",
+				"maxExtend"
+			],
+			[
+				"leg",
+				"legConfig"
+			],
+			[
+				"l",
+				"legConfig"
+			],
+			[
+				"legm",
+				"legMaxRotate"
+			],
+			[
+				"legM",
+				"legMinRotate"
+			],
+			[
+				"tor",
+				"torsoHeight"
+			],
+			[
+				"setLimits",
+				"setLimitsEnabled"
+			],
+			[
+				"torso",
+				"torsoWidth"
+			],
+			[
+				"create",
+				"createCreature"
+			],
+			[
+				"ge",
+				"genericShapeDraw"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/G/Dropbox/My Documents Total/Coding/LOVE/Projects/DontGoLeft/Main"
+	],
+	"file_history":
+	[
+		"/G/Dropbox/My Documents Total/Coding/LOVE/Projects/DontGoLeft/Main/world.lua",
+		"/G/Dropbox/My Documents Total/Coding/LOVE/Projects/DontGoLeft/Main/terrain.lua",
+		"/G/Dropbox/My Documents Total/Coding/LOVE/Projects/DontGoLeft/Main/textures.lua",
+		"/G/Dropbox/My Documents Total/Coding/LOVE/Projects/DontGoLeft/Main/main.lua",
+		"/C/Program Files/OpenVPN/config/chris/chris.ovpn",
+		"/C/Users/Chrispy/Desktop/chris.conf",
+		"/C/Program Files/OpenVPN/config/chris/chris.conf",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp20423/etc/openvpn/Mines.conf",
+		"/C/Users/Chrispy/Desktop/chris_2.conf",
+		"/C/Program Files/OpenVPN/config/chris/chris_2.conf",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp22329/home/chris/ltlbit/app/controllers/addresses_controller.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp23782/home/chris/ltlbit/app/views/addresses/new.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp56084/home/chris/ltlbit/config/routes.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp56314/home/chris/ltlbit/app/views/static_pages/home.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp49982/home/chris/ltlbit/db/migrate/20141027004450_create_addresses.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp45470/home/chris/ltlbit/config/database.yml",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp22199/home/chris/ltlbit/app/controllers/static_pages_controller.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp10673/home/chris/ltlbit/app/controllers/addresses_controller.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp56674/home/chris/ltlbit/app/controllers/static_pages_controller.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp45913/home/chris/sample_app_rails_4-master/config/database.yml",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp07750/home/chris/sample_app_rails_4-master/Gemfile",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp01950/home/chris/sample_app-master/Gemfile",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp49259/home/chris/sample_app/config/routes.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp29746/home/chris/myapp/config/routes.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp19232/home/chris/sample_app/app/views/layouts/application.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp36555/home/chris/myapp/app/views/layouts/_shim.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp36488/home/chris/myapp/app/views/layouts/_headerhtml.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp37675/home/chris/myapp/app/views/layouts/_footer.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp16889/home/chris/sample_app/app/assets/stylesheets/custom.css.scss",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp38083/home/chris/sample_app/app/views/layouts/application.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp08217/home/mc/bungee/terra/logs/latest.log",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp14326/home/chris/sample_app/Gemfile",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp07731/home/chris/sample_app/app/helpers/application_helper.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp08755/home/mc/bungee/terra/logs/server2014-10-16-20.log",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp41491/home/chris/sample_app/app/views/static_pages/help.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp32445/home/chris/sample_app/app/views/static_pages/home.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp44700/home/chris/sample_app/config/routes.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp32201/home/chris/sample_app/app/views/static_pages/about.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp30926/home/chris/sample_app/example_user.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp33073/home/mc/spigot18/eula.txt",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp14328/home/convo/spigot/spigot.yml",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp44247/home/mc/bungee/terra/eula.txt",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp08519/etc/rc.local",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp17100/home/convo/spigot/logs/latest.log",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp48498/home/convo/spigot/server.properties",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp46391/home/convo/spigot/eula.txt",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp34298/home/mc/spigot18/server.properties",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp52927/home/mc/bungee/terra/logs/latest.log",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp14609/home/chris/sample_app/app/views/static_pages/about.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp14322/home/chris/sample_app/app/views/static_pages/help.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp35423/home/chris/sample_app/test/controllers/static_pages_controller_test.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp14512/home/chris/sample_app/app/views/static_pages/home.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp32306/home/chris/first_app/app/models/user.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp10288/home/chris/sample_app/app/controllers/static_pages_controller.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp40899/home/chris/sample_app/config/routes.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp32687/home/chris/first_app/app/models/micropost.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp36848/home/chris/myapp/app/controllers/addresses_controller.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp37340/home/chris/myapp/app/views/addresses/index.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp13897/home/chris/ltlbit/Gemfile",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp39104/home/chris/first_app/Gemfile",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp36344/home/chris/first_app/config/database.yml",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp17641/home/chris/first_app/app/controllers/users_controller.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp31222/home/chris/first_app/config/routes.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp47598/home/chris/sample_app/Gemfile",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp51920/home/chris/sample_app/app/views/layouts/layout_file",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp38627/home/chris/sample_app/test/test_helper.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp58697/home/chris/ltlbit/app/views/layouts/application.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp49744/home/chris/first_app/.gitignore",
+		"/H/steam/cached/offline_english.html",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp50414/home/chris/ltlbit/Gemfile.lock",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp50597/home/chris/ltlbit/Rakefile",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp49918/home/chris/ltlbit/README.rdoc",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp48547/home/chris/ltlbit/app/controllers/application_controller.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp37422/home/chris/ltlbit/app/models/user.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp17836/home/chris/ltlbit/app/views/addresses/show.html.erb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp15785/home/chris/ltlbit/config/environments/development.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp38568/home/chris/ltlbit/app/models/address.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp41674/home/chris/ltlbit/config/database.yml",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp46671/home/chris/ltlbit/config/routes.rb",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp58378/home/chris/ltlbit/app/views/addresses/index.json.jbuilder",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp41255/etc/nginx/sites-available/ltlbit",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp41565/etc/nginx/sites-enabled/default",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp57847/home/chris/myapp/config/database.yml",
+		"/G/Downloads/typing-data.json",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp59200/etc/nginx/sites-available/default",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp10652/data/www/phpinfo.php",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp27852/data/www/tinyurl.php",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp42581/data/www/index.php",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp23681/etc/nginx/nginx.conf",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp16218/var/log/nginx/error.log",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp05155/etc/nginx/sites-enabled/ltlbit",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp16318/var/log/nginx/access.log",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp13209/etc/init.d/php5-fpm",
+		"/G/Downloads/download (2)",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp23509/etc/nginx/sites-enabled/default",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp20034/etc/nginx/sites-available/ltlbit",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp35443/data/www/index.html",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp35123/data/www/index.php",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp18146/var/www/ltlbit/index.html",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp15675/data/www/tinyurl.php",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp18353/var/www/ltlbit/tinyurl.php",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp49713/etc/nginx/sites-enabled/themines",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp19023/etc/nginx/sites-available/default.dpkg-dist",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp27770/etc/nginx/sites-enabled/ltlbit",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp39656/etc/nginx/sites-available/themines",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp39340/etc/nginx/sites-available/itschris",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp43233/etc/nginx/sites-available/default",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp42522/var/log/zabbix/zabbix_server.log",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp49466/var/www/Settings.php",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp26338/etc/network/interfaces",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp25292/etc/network/interfaces",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp54208/etc/php5/fpm/php-fpm.conf",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp54024/etc/php5/fpm/php.ini",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp46649/home/mc/mcservercpp/MCServer/world/stats/kraftman.json",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp45409/home/mc/mcservercpp/MCServer/motd.txt",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp42142/home/mc/mcservercpp/MCServer/settings.ini",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp41494/home/mc/mcservercpp/MCServer/webadmin.ini",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp46718/home/mc/mcservercpp/MCServer/players/89/7e2bcf-77dc-43db-b880-a016fadbb98e.json",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp40602/home/mc/mcservercpp/MCServer/items.ini",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp41948/home/mc/mcservercpp/MCServer/whitelist.ini",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp51995/home/mc/mcservercpp/MCServer/webadmin/login_template.html",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp51994/home/mc/mcservercpp/MCServer/webadmin/template.lua",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp16009/home/mc/mcservercpp/MCServer/world/world.ini",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp41644/home/mc/mcservercpp/MCServer/settings_apidump.ini",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp40067/home/mc/mcservercpp/MCServer/README.txt",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp44068/home/mc/mcservercpp/MCServer/webadmin/(original).html",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp43720/home/mc/mcservercpp/MCServer/MCServer",
+		"/C/Users/Chrispy/AppData/Local/Temp/scp43477/home/mc/mcservercpp/MCServer/furnace.txt"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"9000",
+			"sublime.log_input(True)",
+			"80",
+			"listen",
+			"port",
+			"mysql",
+			"random",
+			"  \n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 247.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "dontgoleft.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

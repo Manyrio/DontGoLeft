@@ -7,7 +7,7 @@ local floor = math.floor
 local CAMERA = CAMERA
 local GAME = GAME
 
-local Draw = love.graphics.draw
+local VARIATION_COUNT = 10
 
 --========================================
 
@@ -33,70 +33,55 @@ local Data = ItemTypes
 local function AdjustPixel(img, x,y, r, g, b, a)
 	local r1, g1, b1, a1 = img:getPixel(x,y)
 	img:setPixel(x,y,r1+r, g1+g, b1+b, a1+a)
-
 end
-							
-
-
-
-							
-function CreateBaseTexture(tex,b,i,j)
-
-	if not Textures[tex] then
-		Textures[tex] ={}
+			
+local function SetBackGroundTexture(tub,r,g,b,a)
+	for i = 0,TUB_SIZE-1 do --set the background color
+		for j = 0,TUB_SIZE-1 do
+			tub[i][j] = {r,g,b,a}
+		end
 	end
-	
-	if #Textures[tex] < 10 then
-		local t = {}
-		for i = 0, TUB_SIZE do
-			t[i] = {}
-		end
-		
-		
-		local offset = random(-5,5)
-		
-		local r,g,b,a = unpack(Data[tex].background)
-		r,g,b,a = r+offset, g+offset, b+offset, a
-		
-	
-		for i = 0,TUB_SIZE-1 do --set the background color
-			for j = 0,TUB_SIZE-1 do
-				t[i][j] = {r,g,b,a}
-			end
-		end
-		
-		for i = 1, random(1,5) do --random colour variation
-			local x = random(0,TUB_SIZE-2)
-			local y = random(0,TUB_SIZE-2)
-			
-			local r,g,b,a = unpack(Data[tex].background)
-			
-			t[x][y] = {r+offset+10,g+offset+10,b+offset+10,a}
-			t[x+1][y] = {r+offset+10,g+offset+10,b+offset+10,a}
-			t[x][y+1] = {r+offset+10,g+offset+10,b+offset+10,a}
-			t[x+1][y+1] = {r+offset+10,g+offset+10,b+offset+10,a}
-			
-			
-		end
-		
-		for i = 1, random(1,5) do --random colour variation
-			local x = random(0,TUB_SIZE-2)
-			local y = random(0,TUB_SIZE-2)
-			local r,g,b,a = unpack(Data[tex].background)
-			t[x][y] = {r+offset-10,g+offset-10,b+offset-10,a}
-			t[x+1][y] = {r+offset-10,g+offset-10,b+offset-10,a}
-			t[x][y+1] = {r+offset-10,g+offset-10,b+offset-10,a}
-			t[x+1][y+1] = {r+offset-10,g+offset-10,b+offset-10,a}
-			
-		end
-		
-		
-		Textures[tex][#Textures[tex]+1] = {tex,t}
+end
 
-		return Textures[tex][#Textures[tex]]
-	else
-		return Textures[tex][random(10)]
+local function AddForeGround(tub,r,g,b,a, offset)
+	for i = 1, random(1,5) do --random colour variation
+		local x = random(0,TUB_SIZE-2)
+		local y = random(0,TUB_SIZE-2)
+		
+		tub[x][y] = {r+offset,g+offset,b+offset,a}
+		tub[x+1][y] = {r+offset,g+offset,b+offset,a}
+		tub[x][y+1] = {r+offset,g+offset,b+offset,a}
+		tub[x+1][y+1] = {r+offset,g+offset,b+offset,a}	
 	end
+end
+
+local function InitialiseTub()
+	local t = {}
+	for i = 0, TUB_SIZE do
+		t[i] = {}
+	end
+	return t
+end
+
+function CreateBaseTexture(ItemType,b,i,j)
+	Textures[ItemType] = Textures[ItemType] or {}
+	--if we have 10 different then use existing
+	if #Textures[ItemType] >= VARIATION_COUNT then
+		return Textures[ItemType][random(VARIATION_COUNT)]
+	end
+
+	local tub = InitialiseTub()
+	local offset = random(-5,5)	
+	local r,g,b,a = unpack(Data[ItemType].background)
+	r,g,b,a = r+offset, g+offset, b+offset, a
+	
+	SetBackGroundTexture(tub,r,g,b,a)
+	AddForeGround(tub,r,g,b,a,10) -- highlights
+	AddForeGround(tub,r,g,b,a,-10) -- lowlights
+	
+	Textures[ItemType][#Textures[ItemType]+1] = {ItemType,tub}
+
+	return Textures[ItemType][#Textures[ItemType]]
 end
 
 
@@ -317,71 +302,64 @@ local function CheckSides(t,left,right,top,bottom,refresh)
 	
 end
 
-function SetEdgeTexture(b, t, i, j,refresh)
-	local left, right, top, bottom
-	
+local function GetTop(b,i,j)
+	local top
 	if j == 0 then --checking top
-		local test = World.Buckets[b.i][b.j-1]
-		if test then
-			if test.tubs[i] and test.tubs[i][BUCKET_YCOUNT-1] then
-				top = test.tubs[i][BUCKET_YCOUNT-1]
-			end
-		end
+		local topBucket = World:GetBucket(b.i, b.j-1)
+		top = topBucket and topBucket.tubs[i] and topBucket.tubs[i][BUCKET_YCOUNT-1]
 	else
 		if b.tubs[i] then
 			top = b.tubs[i][j-1]
 		end
 	end
-	
+	return top
+end
+
+local function GetBottom(b,i,j)
+	local bottom
 	if j == BUCKET_YCOUNT-1 then --checking bottom
-		local test = World.Buckets[b.i][b.j+1]
-		if test then
-			test = test.tubs[i]
-			if test and test[0] then
-				bottom = test[0]
-			end
-		end
+		local bottomBucket = World:GetBucket(b.i,b.j+1)
+		bottom = bottomBucket and bottomBucket.tubs[i] and bottomBucket.tubs[i][0]
 	else
 		if b.tubs[i] then
 			bottom = b.tubs[i][j+1]
 		end
 	end
-	
+	return bottom
+end
+
+local function GetLeft(b,i,j)
+	local left
 	if i == 0 then --checking left
-		local test = World.Buckets[b.i-1] and World.Buckets[b.i-1][b.j]
-		if test then
-			test = test.tubs[BUCKET_XCOUNT-1]
-			if test and test[j] then
-				left = test[j]
-			end
-		end
+		local leftBucket = World:GetBucket(b.i-1,b.j)
+		left = leftBucket and leftBucket.tubs[BUCKET_XCOUNT-1] and leftBucket.tubs[BUCKET_XCOUNT-1][j]
 	else
 		if b.tubs[i-1] then
 			left = b.tubs[i-1][j]
 		end
 	end
-	
+	return left
+end
+
+local function GetRight(b,i,j)
+	local right
 	if i == BUCKET_XCOUNT-1 then --checking right
-		local test = World.Buckets[b.i+1] and World.Buckets[b.i+1][b.j]
-		if test then
-			test = test.tubs[0]
-			if test and test[j] then
-				right= test[j]
-			end
-		end
+		local rightBucket = World:GetBucket(b.i+1,b.j)
+		right = b:GetTub(0, j)
 	else
 		if b.tubs[i+1] then
 			right = b.tubs[i+1][j]
 		end
 	end
-
-	return CheckSides(t,left,right,top,bottom,refresh)
-	
+	return right
 end
 
+function SetEdgeTexture(b,i,j,refresh)
+	local t = b.tubs[i][j]
+	local top, bottom, left, right = GetTop(b,i,j), GetBottom(b,i,j), GetLeft(b,i,j), GetRight(b,i,j)
 
---============================================================
---============================================================
+	return CheckSides(t,left,right,top,bottom,refresh)
+end
 
 CreateIcon = {}
 

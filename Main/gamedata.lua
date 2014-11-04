@@ -16,7 +16,7 @@ WorldTypes.Spawn = {smooth = 20,
 														{label = "deadstone", depth = 20000},
 													},
 											Ores = { gold = {size = 1,mindepth = 3000, maxdepth = 20000, rare = 100},
-															mud = {size = 8,mindepth = 2000, maxdepth = 7000, rare = 700},
+													 mud = {size = 8,mindepth = 2000, maxdepth = 7000, rare = 700},
 										
 													}
 											

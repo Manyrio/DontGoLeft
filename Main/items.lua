@@ -70,35 +70,35 @@ local function Pickup(self, x, y,i,j)
 			if not found then
 				player.items[#player.items+1] = {type = self.type, count = 1}
 			end
-			table.remove(World.Shown_Buckets[j].items, i)
+			table.remove(World.ActiveBuckets[j].items, i)
 		end
 	end
 end
 
 
 				---[[
-function CreateItem(tex, bx,by,tx,ty)
-local bucket = World.Buckets[bx][by]
+function CreateItem(bx,by,tx,ty)
+	local bucket = World.Buckets[bx][by]
+	local tex = bucket.tubs[tx][ty][1]
 
+	local item = {}
+	item.type = tex
+	item.texture = GetIcon(tex)
+	item.x = tx*TUB_SIZE
+	item.y = ty*TUB_SIZE+8
+	item.vx = 0
+	item.vy = 0
+	item.ox = 0
+	item.oy = 8
+	item.bx = bx
+	item.by = by
+	item.Draw = IconDraw
+	item.Collides = Collides
+	item.InPlayerRange = InPlayerRange
+	item.TweenToPlayer = TweenToPlayer
+	item.Pickup = Pickup
 
-local item = {}
-item.type = tex
-item.texture = GetIcon(tex)
-item.x = tx*TUB_SIZE
-item.y = ty*TUB_SIZE+8
-item.vx = 0
-item.vy = 0
-item.ox = 0
-item.oy = 8
-item.bx = bx
-item.by = by
-item.Draw = IconDraw
-item.Collides = Collides
-item.InPlayerRange = InPlayerRange
-item.TweenToPlayer = TweenToPlayer
-item.Pickup = Pickup
-
-table.insert(bucket.items, item)
+	table.insert(bucket.items, item)
 end
 
 --]]
